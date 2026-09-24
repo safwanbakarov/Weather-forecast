@@ -9,154 +9,215 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #e8eaed;
-      --muted: #8b949e;
-      --line: rgba(255,255,255,.08);
-      --accent: #7eb8da;
-      --warm: #e8c07d;
+      --gold: #f0d27a;
+      --gold-2: #c9a24a;
+      --blue: #6ea8ff;
+      --blue-deep: #1b2a6b;
+      --purple: #9b7dff;
+      --purple-deep: #2a1650;
+      --ink: #f4eefc;
+      --muted: #b7a8d4;
+      --line: rgba(240, 210, 122, .18);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       background: transparent;
       color: var(--ink);
       font-family: "Instrument Sans", system-ui, sans-serif;
-      min-height: 100%;
     }
-    body {
-      padding: 8px;
-      display: flex;
-      justify-content: center;
-    }
+    body { padding: 8px; display: flex; justify-content: center; }
     .widget {
       width: 100%;
-      max-width: 420px;
-      background: linear-gradient(165deg, #1a212b 0%, #12161c 100%);
+      max-width: 840px;
+      background:
+        radial-gradient(1200px 280px at 12% -20%, rgba(155,125,255,.28), transparent 55%),
+        radial-gradient(900px 260px at 90% 0%, rgba(110,168,255,.22), transparent 50%),
+        linear-gradient(165deg, #24143f 0%, #151a48 48%, #0e122c 100%);
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px 18px 14px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.28);
+      border-radius: 18px;
+      padding: 20px 22px 16px;
+      box-shadow: 0 16px 50px rgba(20, 8, 40, .45);
     }
     .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
     }
     .place {
       font-family: "Instrument Serif", Georgia, serif;
-      font-size: 1.35rem;
+      font-size: 1.7rem;
       letter-spacing: -0.02em;
-      line-height: 1.15;
     }
-    .meta {
-      color: var(--muted);
-      font-size: 0.72rem;
-      margin-top: 4px;
-      letter-spacing: .02em;
-    }
-    .now {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: right;
-    }
-    .icon-lg { font-size: 2.4rem; line-height: 1; }
-    .temp {
-      font-size: 2.6rem;
-      font-weight: 600;
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-    .temp span { font-size: 1.1rem; color: var(--muted); font-weight: 500; }
-    .cond {
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-top: 2px;
-    }
+    .meta { color: var(--muted); font-size: .78rem; margin-top: 5px; }
+    .now { display: flex; align-items: center; gap: 14px; text-align: right; }
+    .temp { font-size: 3.1rem; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+    .temp span { font-size: 1.15rem; color: var(--gold); }
+    .cond { font-size: .82rem; color: var(--gold); margin-top: 4px; }
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 10px;
       margin: 16px 0 14px;
     }
     .stat {
-      background: rgba(255,255,255,.035);
+      background: linear-gradient(180deg, rgba(155,125,255,.12), rgba(110,168,255,.06));
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 12px;
+      padding: 10px 12px;
     }
     .stat label {
       display: block;
-      font-size: 0.62rem;
+      font-size: .62rem;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .1em;
       color: var(--muted);
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
-    .stat b { font-weight: 600; font-size: 0.92rem; }
-    .hours-wrap {
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
-    }
+    .stat b { font-size: 1rem; color: var(--gold); }
+    .hours-wrap { border-top: 1px solid var(--line); padding-top: 12px; }
     .hours-label {
-      font-size: 0.62rem;
+      font-size: .62rem;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .1em;
       color: var(--muted);
       margin-bottom: 8px;
     }
     .hours {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       overflow-x: auto;
       padding-bottom: 6px;
       scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,.15) transparent;
+      scrollbar-color: rgba(240,210,122,.35) transparent;
     }
     .hour {
-      flex: 0 0 62px;
+      flex: 0 0 68px;
       text-align: center;
-      background: rgba(255,255,255,.035);
+      background: rgba(18, 14, 40, .35);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 8px 4px 9px;
     }
     .hour.now {
-      border-color: rgba(232,192,125,.45);
-      background: rgba(232,192,125,.08);
+      border-color: rgba(240,210,122,.55);
+      background: rgba(240,210,122,.1);
     }
-    .hour .t {
-      font-size: 0.68rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-    .hour.now .t { color: var(--warm); }
-    .hour .ic { font-size: 1.15rem; margin: 5px 0 3px; line-height: 1; }
-    .hour .deg { font-weight: 600; font-size: 0.88rem; }
-    .hour .pop {
-      font-size: 0.62rem;
-      color: var(--accent);
-      margin-top: 2px;
-    }
+    .hour .t { font-size: .68rem; color: var(--muted); font-weight: 500; }
+    .hour.now .t { color: var(--gold); }
+    .hour .scene { width: 42px; height: 42px; margin: 4px auto 2px; }
+    .hour .deg { font-weight: 600; font-size: .88rem; }
+    .hour .pop { font-size: .62rem; color: var(--blue); margin-top: 2px; }
     .foot {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-top: 10px;
       color: var(--muted);
-      font-size: 0.62rem;
+      font-size: .62rem;
     }
+
+    /* scenes */
+    .scene {
+      position: relative;
+      overflow: hidden;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 30%, #3a2a78, #12122a 70%);
+    }
+    .scene.lg { width: 108px; height: 108px; flex-shrink: 0; }
+    .sun, .moon, .cloud, .drop, .flake, .bolt, .gust, .ray {
+      position: absolute;
+    }
+    .sun {
+      width: 28%; height: 28%;
+      left: 36%; top: 30%;
+      background: radial-gradient(circle, #fff6c8 0%, var(--gold) 55%, var(--gold-2) 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 16px rgba(240,210,122,.85);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .ray {
+      left: 50%; top: 50%;
+      width: 2px; height: 42%;
+      background: linear-gradient(var(--gold), transparent);
+      transform-origin: center 0;
+      animation: spin 9s linear infinite;
+    }
+    .moon {
+      width: 30%; height: 30%;
+      left: 36%; top: 28%;
+      background: radial-gradient(circle at 35% 35%, #f7f1d2, #cfc18a);
+      border-radius: 50%;
+      box-shadow: 0 0 14px rgba(240,210,122,.45);
+    }
+    .moon::after {
+      content: "";
+      position: absolute;
+      width: 70%; height: 70%;
+      right: -18%; top: -8%;
+      background: #1a1638;
+      border-radius: 50%;
+    }
+    .cloud {
+      width: 46%; height: 18%;
+      background: #d7e6ff;
+      border-radius: 20px;
+      box-shadow: 12px 0 0 #c9d9ff, -10px 4px 0 #e8f0ff;
+      animation: drift 5.5s ease-in-out infinite;
+      filter: drop-shadow(0 2px 4px rgba(20,10,40,.35));
+    }
+    .cloud.c2 { animation-delay: -2s; opacity: .75; }
+    .drop {
+      width: 2px; height: 10px;
+      background: linear-gradient(#b9d7ff, var(--blue));
+      border-radius: 2px;
+      animation: fall 1.1s linear infinite;
+    }
+    .flake {
+      width: 5px; height: 5px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: .85;
+      animation: fall 2.2s linear infinite;
+    }
+    .bolt {
+      width: 10px; height: 22px;
+      clip-path: polygon(40% 0, 100% 0, 55% 45%, 80% 45%, 0 100%, 35% 52%, 12% 52%);
+      background: var(--gold);
+      animation: flash .9s steps(2) infinite;
+      filter: drop-shadow(0 0 6px var(--gold));
+    }
+    .gust {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #cbb6ff, transparent);
+      border-radius: 2px;
+      animation: whoosh 1.6s linear infinite;
+    }
+    .fog {
+      position: absolute;
+      left: -20%;
+      width: 140%;
+      height: 16%;
+      background: rgba(220,210,255,.28);
+      filter: blur(4px);
+      animation: drift 7s ease-in-out infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 50% { transform: scale(1.08); } }
+    @keyframes drift { 50% { transform: translateX(10px); } }
+    @keyframes fall { from { transform: translateY(-20%); opacity: .2; } to { transform: translateY(220%); opacity: .9; } }
+    @keyframes flash { 0%, 70%, 100% { opacity: .2; } 75%, 85% { opacity: 1; } }
+    @keyframes whoosh { from { transform: translateX(-40%); } to { transform: translateX(80%); } }
   </style>
 </head>
 <body>
-  <div class="widget" id="app">
+  <div class="widget">
     <div class="top">
       <div>
         <div class="place" id="place">Kuala Lumpur</div>
         <div class="meta" id="meta">Malaysia · loading…</div>
       </div>
       <div class="now">
-        <div class="icon-lg" id="icon">◌</div>
+        <div class="scene lg" id="icon"></div>
         <div>
           <div class="temp" id="temp">–<span>°</span></div>
           <div class="cond" id="cond">Fetching</div>
@@ -186,38 +247,56 @@
     const HOURS = Math.min(Math.max(parseInt(params.get("hours") || "24", 10), 6), 48);
 
     const WMO = {
-      0:  ["Clear sky", "☀️"],
-      1:  ["Mainly clear", "🌤️"],
-      2:  ["Partly cloudy", "⛅"],
-      3:  ["Overcast", "☁️"],
-      45: ["Fog", "🌫️"],
-      48: ["Rime fog", "🌫️"],
-      51: ["Light drizzle", "🌦️"],
-      53: ["Drizzle", "🌦️"],
-      55: ["Dense drizzle", "🌧️"],
-      56: ["Freezing drizzle", "🌧️"],
-      57: ["Freezing drizzle", "🌧️"],
-      61: ["Slight rain", "🌧️"],
-      63: ["Rain", "🌧️"],
-      65: ["Heavy rain", "🌧️"],
-      66: ["Freezing rain", "🌧️"],
-      67: ["Freezing rain", "🌧️"],
-      71: ["Slight snow", "🌨️"],
-      73: ["Snow", "🌨️"],
-      75: ["Heavy snow", "❄️"],
-      77: ["Snow grains", "🌨️"],
-      80: ["Rain showers", "🌦️"],
-      81: ["Rain showers", "🌧️"],
-      82: ["Violent showers", "⛈️"],
-      85: ["Snow showers", "🌨️"],
-      86: ["Heavy snow showers", "❄️"],
-      95: ["Thunderstorm", "⛈️"],
-      96: ["Thunderstorm + hail", "⛈️"],
-      99: ["Severe thunderstorm", "⛈️"]
+      0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+      45: "Fog", 48: "Rime fog",
+      51: "Light drizzle", 53: "Drizzle", 55: "Dense drizzle",
+      56: "Freezing drizzle", 57: "Freezing drizzle",
+      61: "Slight rain", 63: "Rain", 65: "Heavy rain",
+      66: "Freezing rain", 67: "Freezing rain",
+      71: "Slight snow", 73: "Snow", 75: "Heavy snow", 77: "Snow grains",
+      80: "Rain showers", 81: "Rain showers", 82: "Violent showers",
+      85: "Snow showers", 86: "Heavy snow showers",
+      95: "Thunderstorm", 96: "Thunderstorm + hail", 99: "Severe thunderstorm"
     };
 
-    function wmo(code) {
-      return WMO[code] || ["—", "🌡️"];
+    function kind(code, isDay) {
+      if (code === 0) return isDay ? "sun" : "moon";
+      if (code === 1) return isDay ? "sun-cloud" : "moon-cloud";
+      if (code === 2) return isDay ? "partly" : "moon-cloud";
+      if (code === 3) return "cloudy";
+      if (code === 45 || code === 48) return "fog";
+      if ([51,53,55,56,57,80].includes(code)) return "drizzle";
+      if ([61,63,66,67,81].includes(code)) return "rain";
+      if ([65,82].includes(code)) return "heavy-rain";
+      if ([71,73,75,77,85,86].includes(code)) return "snow";
+      if ([95,96,99].includes(code)) return "thunder";
+      return isDay ? "sun-cloud" : "moon-cloud";
+    }
+
+    function scene(type, windy) {
+      const bits = [];
+      const sun = '<div class="sun"></div>';
+      const moon = '<div class="moon"></div>';
+      const clouds = '<div class="cloud" style="left:22%;top:48%"></div><div class="cloud c2" style="left:38%;top:58%;width:34%"></div>';
+      const rain = Array.from({length: 7}, (_, i) =>
+        `<div class="drop" style="left:${18+i*10}%;top:-10%;animation-delay:${i*.14}s"></div>`
+      ).join("");
+      const snow = Array.from({length: 6}, (_, i) =>
+        `<div class="flake" style="left:${20+i*12}%;animation-delay:${i*.3}s"></div>`
+      ).join("");
+      const wind = '<div class="gust" style="top:38%;left:10%;width:70%"></div><div class="gust" style="top:52%;left:18%;width:55%;animation-delay:.4s"></div><div class="gust" style="top:66%;left:8%;width:62%;animation-delay:.8s"></div>';
+
+      if (type === "sun") bits.push(sun);
+      if (type === "moon") bits.push(moon);
+      if (type === "sun-cloud" || type === "partly") bits.push(sun, clouds);
+      if (type === "moon-cloud") bits.push(moon, clouds);
+      if (type === "cloudy") bits.push(clouds);
+      if (type === "fog") bits.push('<div class="fog" style="top:42%"></div><div class="fog" style="top:62%;animation-delay:-3s"></div>');
+      if (type === "drizzle" || type === "rain" || type === "heavy-rain") bits.push(clouds, rain);
+      if (type === "snow") bits.push(clouds, snow);
+      if (type === "thunder") bits.push(clouds, rain, '<div class="bolt" style="left:46%;top:28%"></div>');
+      if (windy) bits.push(wind);
+      return bits.join("");
     }
 
     function hourLabel(iso, isNow) {
@@ -226,52 +305,35 @@
       if (d.getHours() === 0) return fmtDayShort(iso);
       return d.toLocaleTimeString("en-MY", { hour: "numeric", hour12: true }).replace(" ", "");
     }
-
     function fmtDate(iso) {
-      try {
-        return new Date(iso).toLocaleDateString("en-MY", {
-          weekday: "short",
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        });
-      } catch { return ""; }
+      return new Date(iso).toLocaleDateString("en-MY", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
     }
-
     function fmtTime(iso) {
-      try {
-        return new Date(iso).toLocaleTimeString("en-MY", {
-          hour: "numeric", minute: "2-digit", hour12: true
-        });
-      } catch { return ""; }
+      return new Date(iso).toLocaleTimeString("en-MY", { hour: "numeric", minute: "2-digit", hour12: true });
     }
-
     function fmtDayShort(iso) {
-      try {
-        return new Date(iso).toLocaleDateString("en-MY", { weekday: "short", day: "numeric" });
-      } catch { return ""; }
+      return new Date(iso).toLocaleDateString("en-MY", { weekday: "short", day: "numeric" });
     }
 
     async function load() {
       const url =
         `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
-        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m` +
-        `&hourly=temperature_2m,weather_code,precipitation_probability` +
+        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day` +
+        `&hourly=temperature_2m,weather_code,precipitation_probability,is_day,wind_speed_10m` +
         `&timezone=Asia%2FKuala_Lumpur&forecast_hours=${HOURS}`;
-
       const res = await fetch(url);
       if (!res.ok) throw new Error("Weather request failed");
       const data = await res.json();
-
       const c = data.current;
-      const [desc, icon] = wmo(c.weather_code);
+      const desc = WMO[c.weather_code] || "—";
+      const windy = c.wind_speed_10m >= 20;
+      const type = kind(c.weather_code, c.is_day);
 
       document.getElementById("place").textContent = PLACE;
-      document.getElementById("meta").textContent =
-        `${fmtDate(c.time)} · ${fmtTime(c.time)}`;
-      document.getElementById("icon").textContent = icon;
+      document.getElementById("meta").textContent = `${fmtDate(c.time)} · ${fmtTime(c.time)}`;
+      document.getElementById("icon").innerHTML = scene(type, windy);
       document.getElementById("temp").innerHTML = `${Math.round(c.temperature_2m)}<span>°</span>`;
-      document.getElementById("cond").textContent = desc;
+      document.getElementById("cond").textContent = windy && !desc.toLowerCase().includes("wind") ? desc + " · breezy" : desc;
       document.getElementById("hum").textContent = `${c.relative_humidity_2m}%`;
       document.getElementById("wind").textContent = `${Math.round(c.wind_speed_10m)} km/h`;
       document.getElementById("feels").textContent = `${Math.round(c.apparent_temperature)}°`;
@@ -280,28 +342,22 @@
       const nowMs = new Date(c.time).getTime();
       let start = 0;
       for (let i = 0; i < h.time.length; i++) {
-        if (new Date(h.time[i]).getTime() >= nowMs - 30 * 60 * 1000) {
-          start = i;
-          break;
-        }
+        if (new Date(h.time[i]).getTime() >= nowMs - 30 * 60 * 1000) { start = i; break; }
       }
-
       const sliceEnd = Math.min(start + HOURS, h.time.length);
-      const hoursEl = document.getElementById("hours");
-      hoursEl.innerHTML = h.time.slice(start, sliceEnd).map((t, idx) => {
+      document.getElementById("hours").innerHTML = h.time.slice(start, sliceEnd).map((t, idx) => {
         const i = start + idx;
         const isNow = idx === 0;
-        const [, ic] = wmo(h.weather_code[i]);
+        const k = kind(h.weather_code[i], h.is_day[i]);
+        const w = h.wind_speed_10m[i] >= 20;
         const pop = h.precipitation_probability[i];
-        return `
-          <div class="hour ${isNow ? "now" : ""}" title="${wmo(h.weather_code[i])[0]}">
-            <div class="t">${hourLabel(t, isNow)}</div>
-            <div class="ic">${ic}</div>
-            <div class="deg">${Math.round(h.temperature_2m[i])}°</div>
-            <div class="pop">${pop > 0 ? pop + "%" : "—"}</div>
-          </div>`;
+        return `<div class="hour ${isNow ? "now" : ""}" title="${WMO[h.weather_code[i]] || ""}">
+          <div class="t">${hourLabel(t, isNow)}</div>
+          <div class="scene">${scene(k, w)}</div>
+          <div class="deg">${Math.round(h.temperature_2m[i])}°</div>
+          <div class="pop">${pop > 0 ? pop + "%" : "—"}</div>
+        </div>`;
       }).join("");
-
       document.getElementById("updated").textContent = "Open-Meteo · auto 15 min";
       document.getElementById("range").textContent = `Next ${sliceEnd - start}h`;
     }
@@ -310,7 +366,6 @@
       document.getElementById("meta").textContent = "Could not load forecast";
       document.getElementById("cond").textContent = e.message;
     });
-
     setInterval(load, 15 * 60 * 1000);
   </script>
 </body>
