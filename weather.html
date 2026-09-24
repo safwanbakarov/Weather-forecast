@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather · Kuala Lumpur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #e8eaed;
+      --muted: #8b949e;
+      --line: rgba(255,255,255,.08);
+      --accent: #7eb8da;
+      --warm: #e8c07d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: transparent;
+      color: var(--ink);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      min-height: 100%;
+    }
+    body {
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+    }
+    .widget {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(165deg, #1a212b 0%, #12161c 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 18px 14px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.28);
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .place {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.72rem;
+      margin-top: 4px;
+      letter-spacing: .02em;
+    }
+    .now {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: right;
+    }
+    .icon-lg { font-size: 2.4rem; line-height: 1; }
+    .temp {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .temp span { font-size: 1.1rem; color: var(--muted); font-weight: 500; }
+    .cond {
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 16px 0 14px;
+    }
+    .stat {
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .stat label {
+      display: block;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .stat b { font-weight: 600; font-size: 0.92rem; }
+    .hours-wrap {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+    .hours-label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .hours {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.15) transparent;
+    }
+    .hour {
+      flex: 0 0 62px;
+      text-align: center;
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 4px 9px;
+    }
+    .hour.now {
+      border-color: rgba(232,192,125,.45);
+      background: rgba(232,192,125,.08);
+    }
+    .hour .t {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .hour.now .t { color: var(--warm); }
+    .hour .ic { font-size: 1.15rem; margin: 5px 0 3px; line-height: 1; }
+    .hour .deg { font-weight: 600; font-size: 0.88rem; }
+    .hour .pop {
+      font-size: 0.62rem;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.62rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget" id="app">
+    <div class="top">
+      <div>
+        <div class="place" id="place">Kuala Lumpur</div>
+        <div class="meta" id="meta">Malaysia · loading…</div>
+      </div>
+      <div class="now">
+        <div class="icon-lg" id="icon">◌</div>
+        <div>
+          <div class="temp" id="temp">–<span>°</span></div>
+          <div class="cond" id="cond">Fetching</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><label>Humidity</label><b id="hum">–</b></div>
+      <div class="stat"><label>Wind</label><b id="wind">–</b></div>
+      <div class="stat"><label>Feels</label><b id="feels">–</b></div>
+    </div>
+    <div class="hours-wrap">
+      <div class="hours-label">Hourly forecast</div>
+      <div class="hours" id="hours"></div>
+    </div>
+    <div class="foot">
+      <span id="updated">Open-Meteo</span>
+      <span id="range"></span>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const LAT = parseFloat(params.get("lat")) || 3.139;
+    const LON = parseFloat(params.get("lon")) || 101.6869;
+    const PLACE = params.get("place") || "Kuala Lumpur";
+    const HOURS = Math.min(Math.max(parseInt(params.get("hours") || "24", 10), 6), 48);
+
+    const WMO = {
+      0:  ["Clear sky", "☀️"],
+      1:  ["Mainly clear", "🌤️"],
+      2:  ["Partly cloudy", "⛅"],
+      3:  ["Overcast", "☁️"],
+      45: ["Fog", "🌫️"],
+      48: ["Rime fog", "🌫️"],
+      51: ["Light drizzle", "🌦️"],
+      53: ["Drizzle", "🌦️"],
+      55: ["Dense drizzle", "🌧️"],
+      56: ["Freezing drizzle", "🌧️"],
+      57: ["Freezing drizzle", "🌧️"],
+      61: ["Slight rain", "🌧️"],
+      63: ["Rain", "🌧️"],
+      65: ["Heavy rain", "🌧️"],
+      66: ["Freezing rain", "🌧️"],
+      67: ["Freezing rain", "🌧️"],
+      71: ["Slight snow", "🌨️"],
+      73: ["Snow", "🌨️"],
+      75: ["Heavy snow", "❄️"],
+      77: ["Snow grains", "🌨️"],
+      80: ["Rain showers", "🌦️"],
+      81: ["Rain showers", "🌧️"],
+      82: ["Violent showers", "⛈️"],
+      85: ["Snow showers", "🌨️"],
+      86: ["Heavy snow showers", "❄️"],
+      95: ["Thunderstorm", "⛈️"],
+      96: ["Thunderstorm + hail", "⛈️"],
+      99: ["Severe thunderstorm", "⛈️"]
+    };
+
+    function wmo(code) {
+      return WMO[code] || ["—", "🌡️"];
+    }
+
+    function hourLabel(iso, isNow) {
+      if (isNow) return "Now";
+      const d = new Date(iso);
+      return d.toLocaleTimeString("en-MY", { hour: "numeric", hour12: true }).replace(" ", "");
+    }
+
+    function fmtTime(iso) {
+      try {
+        return new Date(iso).toLocaleString("en-MY", {
+          weekday: "short", hour: "numeric", minute: "2-digit", hour12: true
+        });
+      } catch { return ""; }
+    }
+
+    async function load() {
+      const url =
+        `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+        `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m` +
+        `&hourly=temperature_2m,weather_code,precipitation_probability` +
+        `&timezone=Asia%2FKuala_Lumpur&forecast_hours=${HOURS}`;
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Weather request failed");
+      const data = await res.json();
+
+      const c = data.current;
+      const [desc, icon] = wmo(c.weather_code);
+
+      document.getElementById("place").textContent = PLACE;
+      document.getElementById("meta").textContent = `Malaysia · ${fmtTime(c.time)}`;
+      document.getElementById("icon").textContent = icon;
+      document.getElementById("temp").innerHTML = `${Math.round(c.temperature_2m)}<span>°</span>`;
+      document.getElementById("cond").textContent = desc;
+      document.getElementById("hum").textContent = `${c.relative_humidity_2m}%`;
+      document.getElementById("wind").textContent = `${Math.round(c.wind_speed_10m)} km/h`;
+      document.getElementById("feels").textContent = `${Math.round(c.apparent_temperature)}°`;
+
+      const h = data.hourly;
+      const nowMs = new Date(c.time).getTime();
+      let start = 0;
+      for (let i = 0; i < h.time.length; i++) {
+        if (new Date(h.time[i]).getTime() >= nowMs - 30 * 60 * 1000) {
+          start = i;
+          break;
+        }
+      }
+
+      const sliceEnd = Math.min(start + HOURS, h.time.length);
+      const hoursEl = document.getElementById("hours");
+      hoursEl.innerHTML = h.time.slice(start, sliceEnd).map((t, idx) => {
+        const i = start + idx;
+        const isNow = idx === 0;
+        const [, ic] = wmo(h.weather_code[i]);
+        const pop = h.precipitation_probability[i];
+        return `
+          <div class="hour ${isNow ? "now" : ""}" title="${wmo(h.weather_code[i])[0]}">
+            <div class="t">${hourLabel(t, isNow)}</div>
+            <div class="ic">${ic}</div>
+            <div class="deg">${Math.round(h.temperature_2m[i])}°</div>
+            <div class="pop">${pop > 0 ? pop + "%" : "—"}</div>
+          </div>`;
+      }).join("");
+
+      document.getElementById("updated").textContent = "Open-Meteo · auto 15 min";
+      document.getElementById("range").textContent = `Next ${sliceEnd - start}h`;
+    }
+
+    load().catch((e) => {
+      document.getElementById("meta").textContent = "Could not load forecast";
+      document.getElementById("cond").textContent = e.message;
+    });
+
+    setInterval(load, 15 * 60 * 1000);
+  </script>
+</body>
+</html>
