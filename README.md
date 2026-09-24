@@ -11,6 +11,7 @@ Data: [Open-Meteo](https://open-meteo.com/) (no API key).
 
 ## What it shows
 
+- Current date and time (Malaysia timezone)
 - Current temperature, condition, humidity, wind, and “feels like”
 - Next 24 hours by default (time, icon, temp, rain chance)
 - Auto-refresh every 15 minutes
@@ -24,6 +25,10 @@ Notion’s `/embed` block needs a **public URL**.
    - GitHub Pages
    - Cloudflare Pages / Netlify Drop
    - Any existing site path, e.g. `https://yoursite.com/weather.html`
+Live embed URL:
+
+`https://safwanbakarov.github.io/Weather-forecast/weather.html`
+
 2. In Notion, type `/embed` and paste that URL.
 3. Resize the block to about **400 × 520**.
 
