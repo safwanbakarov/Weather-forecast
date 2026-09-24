@@ -1,4 +1,3 @@
-# Weather-forecast
 # Weather Widget
 
 A compact, self-contained hourly weather forecast page for embedding in a Notion dashboard.
